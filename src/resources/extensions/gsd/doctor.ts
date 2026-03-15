@@ -93,13 +93,15 @@ function validatePreferenceShape(preferences: GSDPreferences): string[] {
 }
 
 /**
- * Characters that are used as delimiters in GSD state management documents
- * and should not appear in milestone or slice titles.
+ * Characters that should not appear in milestone or slice titles because they
+ * conflict with GSD conventions and can cause state corruption.
  *
- * - "—" (em dash, U+2014): used as a display separator in STATE.md and other docs.
- *   A title containing "—" makes the separator ambiguous, corrupting state display
- *   and confusing the LLM agent that reads and writes these files.
- * - "–" (en dash, U+2013): visually similar to em dash; same ambiguity risk.
+ * - "—" (em dash, U+2014) and "–" (en dash, U+2013): these characters appear
+ *   throughout GSD-generated planning documents (ROADMAP.md, CONTEXT.md, etc.)
+ *   as inline prose separators. When a milestone title also contains them, the
+ *   LLM agent misreads the title boundary—for example, treating everything after
+ *   the first "—" as a description suffix rather than part of the title—leading
+ *   to truncated or empty milestone names in STATE.md and downstream files.
  * - "/" (forward slash, U+002F): used as the path separator in unit IDs (M001/S01)
  *   and git branch names (gsd/M001/S01). A slash in a title can break path resolution.
  */

@@ -524,8 +524,8 @@ Discovered an issue.
     writeFileSync(join(dtSDir, "S01-PLAN.md"), `# S01: Demo Slice\n\n**Goal:** Demo\n**Demo:** Demo\n\n## Tasks\n- [ ] **T01: Implement** \`est:10m\`\n  Task.\n`);
     writeFileSync(join(dtTDir, "T01-PLAN.md"), `# T01: Implement\n\n## Steps\n\n1. Do the thing.\n`);
 
-    const report = await runGSDDoctor(dtBase, { fix: false });
-    const dtIssues = report.issues.filter(i => i.code === "delimiter_in_title");
+    const doctorReport = await runGSDDoctor(dtBase, { fix: false });
+    const dtIssues = doctorReport.issues.filter(i => i.code === "delimiter_in_title");
     assertTrue(dtIssues.length >= 1, "detects delimiter_in_title for milestone with em dash");
     const milestoneIssue = dtIssues.find(i => i.scope === "milestone");
     assertTrue(milestoneIssue !== undefined, "delimiter issue has milestone scope");
@@ -552,8 +552,8 @@ Discovered an issue.
     writeFileSync(join(dtSDir, "S01-PLAN.md"), `# S01: Core — Foundation\n\n**Goal:** Demo\n**Demo:** Demo\n\n## Tasks\n- [ ] **T01: Implement** \`est:10m\`\n  Task.\n`);
     writeFileSync(join(dtTDir, "T01-PLAN.md"), `# T01: Implement\n\n## Steps\n\n1. Do the thing.\n`);
 
-    const report = await runGSDDoctor(dtBase, { fix: false });
-    const dtIssues = report.issues.filter(i => i.code === "delimiter_in_title");
+    const doctorReport = await runGSDDoctor(dtBase, { fix: false });
+    const dtIssues = doctorReport.issues.filter(i => i.code === "delimiter_in_title");
     assertTrue(dtIssues.length >= 1, "detects delimiter_in_title for slice with em dash");
     const sliceIssue = dtIssues.find(i => i.scope === "slice");
     assertTrue(sliceIssue !== undefined, "delimiter issue has slice scope");
@@ -578,8 +578,8 @@ Discovered an issue.
     writeFileSync(join(dtSDir, "S01-PLAN.md"), `# S01: Demo Slice\n\n**Goal:** Demo\n**Demo:** Demo\n\n## Tasks\n- [ ] **T01: Implement** \`est:10m\`\n  Task.\n`);
     writeFileSync(join(dtTDir, "T01-PLAN.md"), `# T01: Implement\n\n## Steps\n\n1. Do the thing.\n`);
 
-    const report = await runGSDDoctor(dtBase, { fix: false });
-    const dtIssues = report.issues.filter(i => i.code === "delimiter_in_title");
+    const doctorReport = await runGSDDoctor(dtBase, { fix: false });
+    const dtIssues = doctorReport.issues.filter(i => i.code === "delimiter_in_title");
     assertEq(dtIssues.length, 0, "no delimiter_in_title issues for clean titles");
 
     rmSync(dtBase, { recursive: true, force: true });
